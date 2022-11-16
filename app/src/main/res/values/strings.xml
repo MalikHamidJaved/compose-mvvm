@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Todo</string>
+    <string name="invalid_email">Invalid Email</string>
+    <string name="invalid_password">Invalid Passsword</string>
+</resources>
