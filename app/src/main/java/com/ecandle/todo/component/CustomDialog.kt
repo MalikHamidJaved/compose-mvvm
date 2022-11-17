@@ -21,6 +21,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
@@ -123,4 +124,11 @@ fun CustomDialog(value: String, setShowDialog: (Boolean) -> Unit, setValue: (Str
             }
         }
     }
+}
+
+
+@Preview
+@Composable
+fun viewDialog(){
+    CustomDialog(value = "alpha", setShowDialog = {  }, setValue = {})
 }

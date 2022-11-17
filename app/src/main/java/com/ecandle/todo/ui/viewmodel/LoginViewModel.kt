@@ -7,14 +7,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ecandle.todo.ui.state.LoginState
 import com.ecandle.todo.util.DataState
-import com.ecandle.todo.util.SpManager
-import com.haznedar.myvocabularynotebook.domain.use_case.get_login.LoginUseCase
+import com.ecandle.todo.use_case.LoginUseCase
 
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch

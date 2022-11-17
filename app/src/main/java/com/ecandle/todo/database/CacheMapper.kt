@@ -1,15 +1,15 @@
 package com.ecandle.todo.database
 
 
-import com.ecandle.todo.model.Stream
+import com.ecandle.todo.model.Task
 import com.ecandle.todo.util.EntityMapper
 import javax.inject.Inject
 
 class CacheMapper
 @Inject
-constructor() : EntityMapper<StreamCacheEntity, Stream> {
-    override fun mapFromEntity(entity: StreamCacheEntity): Stream {
-        return Stream(
+constructor() : EntityMapper<StreamCacheEntity, Task> {
+    override fun mapFromEntity(entity: StreamCacheEntity): Task {
+        return Task(
             id = entity.id,
             recording = entity.recording,
             username_from = entity.username_from,
@@ -18,7 +18,7 @@ constructor() : EntityMapper<StreamCacheEntity, Stream> {
         )
     }
 
-    override fun mapToEntity(domainModel: Stream): StreamCacheEntity {
+    override fun mapToEntity(domainModel: Task): StreamCacheEntity {
         return StreamCacheEntity(
             id = domainModel.id,
             recording = domainModel.recording,
@@ -28,7 +28,7 @@ constructor() : EntityMapper<StreamCacheEntity, Stream> {
         )
     }
 
-    fun mapFromEntityList(entities: List<StreamCacheEntity>): List<Stream> {
+    fun mapFromEntityList(entities: List<StreamCacheEntity>): List<Task> {
         return entities.map { mapFromEntity(it) }
     }
 

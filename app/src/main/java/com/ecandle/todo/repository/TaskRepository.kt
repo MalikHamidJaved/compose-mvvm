@@ -1,40 +1,40 @@
 package com.ecandle.todo.repository
 
 
-import com.candle.streams_player_mvvm.network.StreamApi
-import com.candle.streams_player_mvvm.network.StreamApiResponseMapper
+import com.candle.streams_player_mvvm.network.TasksApi
+import com.candle.streams_player_mvvm.network.TaskApiResponseMapper
 import com.ecandle.todo.database.CacheMapper
-import com.ecandle.todo.database.StreamDao
+import com.ecandle.todo.database.TaskDao
 import com.ecandle.todo.model.LoggedInUser
-import com.ecandle.todo.model.Stream
+import com.ecandle.todo.model.Task
 import com.ecandle.todo.util.DataState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class StreamRepository
+class TaskRepository
 constructor(
-    private val streamDao: StreamDao,
-    private val streamApi: StreamApi,
+    private val taskDao: TaskDao,
+    private val tasksApi: TasksApi,
     private val cacheMapper: CacheMapper,
-    private val streamApiResponseMapper: StreamApiResponseMapper
+    private val taskApiResponseMapper: TaskApiResponseMapper
 ) {
-    suspend fun getStream(user: LoggedInUser): Flow<DataState<List<Stream>>> = flow {
+    suspend fun getTask(user: LoggedInUser): Flow<DataState<List<Task>>> = flow {
         emit(DataState.Loading)
         try {
-            val networkStream = streamApi.get()
+            val networkStream = tasksApi.get()
             if(networkStream.size > 0){
-                val streams = streamApiResponseMapper.mapFromEntityList(networkStream)
+                val streams = taskApiResponseMapper.mapFromEntityList(networkStream)
                 for (stream in streams) {
-                    streamDao.insert(cacheMapper.mapToEntity(stream))
+                    taskDao.insert(cacheMapper.mapToEntity(stream))
                 }
 
             }
 
             if(user.isAdmin){
-                val cachedStream = streamDao.get()
+                val cachedStream = taskDao.get()
                 emit(DataState.Success(cacheMapper.mapFromEntityList(cachedStream)))
             }else{
-                val cachedStream = streamDao.getForFilteredUser(user.userId)
+                val cachedStream = taskDao.getForFilteredUser(user.userId)
                 emit(DataState.Success(cacheMapper.mapFromEntityList(cachedStream)))
             }
         } catch (e: Exception) {
@@ -42,16 +42,16 @@ constructor(
         }
     }
 
-    suspend fun getStreamFromLocal(query: String, userData: LoggedInUser): Flow<DataState<List<Stream>>> = flow {
+    suspend fun getTaskFromLocal(query: String, userData: LoggedInUser): Flow<DataState<List<Task>>> = flow {
         emit(DataState.Loading)
         try {
 
 
             if(userData.isAdmin){
-                var cachedStream = streamDao.get(query)
+                var cachedStream = taskDao.get(query)
                 emit(DataState.Success(cacheMapper.mapFromEntityList(cachedStream)))
             }else{
-                var cachedStream = streamDao.getForFilteredUser(query,userData.userId)
+                var cachedStream = taskDao.getForFilteredUser(query,userData.userId)
                 emit(DataState.Success(cacheMapper.mapFromEntityList(cachedStream)))
             }
         } catch (e: Exception) {

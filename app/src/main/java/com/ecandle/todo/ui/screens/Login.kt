@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.*
 import androidx.hilt.navigation.compose.hiltViewModel
 
 import androidx.compose.runtime.Composable
@@ -24,10 +25,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.ecandle.todo.ui.Routes
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Error
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import com.ecandle.todo.ui.theme.Purple700
@@ -38,8 +37,9 @@ import com.ecandle.todo.ui.theme.JetpackComposeDemoTheme
 import com.ecandle.todo.util.LoadingAnimation
 
 @Composable
-fun LoginPage(navController: NavHostController,
-              viewModel: LoginViewModel = hiltViewModel()
+fun LoginPage(
+    navController: NavHostController,
+    viewModel: LoginViewModel = hiltViewModel()
 ) {
     val state = viewModel.state.value
     val context = LocalContext.current
@@ -82,33 +82,58 @@ fun LoginPage(navController: NavHostController,
             onValueChange = {
                 isErrorEmailIcon.value = false
                 username.value = it
-            })
+            },
+            trailingIcon = {
+                if (!isErrorEmailMessage.value.isNullOrEmpty())
+                    Icon(
+                        Icons.Filled.Error,
+                        isErrorEmailMessage.value,
+                        tint = MaterialTheme.colors.error
+                    )
+            },
+            isError = !isErrorEmailMessage.value.isNullOrEmpty()
+
+        )
 
         Spacer(modifier = Modifier.height(20.dp))
+
         TextField(
             label = { Text(text = "Password") },
+            trailingIcon = {
+                if (!isErrorPasswordMessage.value.isNullOrEmpty())
+                    Icon(
+                        Icons.Filled.Error,
+                        isErrorPasswordMessage.value,
+                        tint = MaterialTheme.colors.error
+                    )
+            },
             value = password.value,
             visualTransformation = PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             onValueChange = {
                 isErrorPasswordMessage.value = ""
                 password.value = it
-            })
+            },
+            isError = !isErrorPasswordMessage.value.isNullOrEmpty()
+
+        )
+
+
+
 
         Spacer(modifier = Modifier.height(20.dp))
-        if (state.isLoading){
+        if (state.isLoading) {
             Row(
                 horizontalArrangement = Arrangement.Center,
                 modifier = Modifier.fillMaxWidth()
             ) {
 
 
-
                 LoadingAnimation(speed = 4f)
 
 
             }
-        }else{
+        } else {
             Box(modifier = Modifier.padding(40.dp, 0.dp, 40.dp, 0.dp)) {
                 Button(
                     onClick = {
@@ -136,8 +161,7 @@ fun LoginPage(navController: NavHostController,
 
                             LoginUtils.INVALID_PASSWORD -> {
 
-                                isErrorEmailIcon.value = true
-                                isErrorEmailMessage.value =
+                                isErrorPasswordMessage.value =
                                     context.getString(R.string.invalid_password)
 
                             }
@@ -156,17 +180,6 @@ fun LoginPage(navController: NavHostController,
             }
         }
 
-        if (isErrorEmailIcon.value) {
-            Text(
-                text = isErrorEmailMessage.value,
-                color = MaterialTheme.colors.error,
-                style = MaterialTheme.typography.caption,
-                modifier = Modifier.padding(
-                    top = 20.dp,
-                    start = 20.dp
-                )
-            )
-        }
 
         Spacer(modifier = Modifier.height(20.dp))
         ClickableText(
@@ -180,13 +193,13 @@ fun LoginPage(navController: NavHostController,
     }
 
     state.loginList?.let {
-        navController.navigate(Routes.Home.route)
+        viewModel.clearViewModel()
+        navController.navigate(Routes.Dashboard.route)
     }
 }
 
 
-
 @Preview
 @Composable
-fun loginPreview(){
+fun loginPreview() {
 }

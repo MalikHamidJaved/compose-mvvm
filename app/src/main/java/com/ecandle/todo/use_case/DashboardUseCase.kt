@@ -1,9 +1,9 @@
-package com.haznedar.myvocabularynotebook.domain.use_case.get_signin
+package com.ecandle.todo.use_case
 
 
 import javax.inject.Inject
 
-class SignInUseCase @Inject constructor(
+class DashboardUseCase @Inject constructor(
 
 
 ) {

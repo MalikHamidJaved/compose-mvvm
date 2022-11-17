@@ -1,11 +1,10 @@
-package com.haznedar.myvocabularynotebook.domain.use_case.get_login
+package com.ecandle.todo.use_case
 
 import android.util.Log
 import com.ecandle.todo.model.LoggedInUser
 import com.ecandle.todo.repository.LoginRepository
 import com.ecandle.todo.util.DataState
 import com.ecandle.todo.util.internetCheck
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException

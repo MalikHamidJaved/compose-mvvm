@@ -1,13 +1,12 @@
 package com.ecandle.todo.di
 
-import com.candle.streams_player_mvvm.network.StreamApi
+import com.candle.streams_player_mvvm.network.TasksApi
 import com.ecandle.todo.util.AppConstants
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ActivityRetainedComponent
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -43,9 +42,9 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideStreamService(retrofit: Retrofit.Builder): StreamApi {
+    fun provideStreamService(retrofit: Retrofit.Builder): TasksApi {
         return retrofit
             .build()
-            .create(StreamApi::class.java)
+            .create(TasksApi::class.java)
     }
 }

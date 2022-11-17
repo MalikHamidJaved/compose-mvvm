@@ -1,6 +1,6 @@
 package com.ecandle.todo.model
 
-data class Stream(
+data class Task(
     val id: Int,
     val recording: String?,
     val timestamp: String?,

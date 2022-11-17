@@ -16,6 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
@@ -51,24 +52,7 @@ fun DashboardPage(navController: NavHostController){
 
     Scaffold(
         topBar = {
-            CustomTopAppBar(navController, "Home", false)
-            TopAppBar(
-                title = {
-                    Text(text = "Home")
-                },
-                navigationIcon = if (false && navController.previousBackStackEntry != null) {
-                    {
-                        IconButton(onClick = { navController.navigateUp() }) {
-                            Icon(
-                                imageVector = Icons.Filled.ArrowBack,
-                                contentDescription = "Back"
-                            )
-                        }
-                    }
-                } else {
-                    null
-                }
-            )
+
         }, content = {
             Box(modifier = Modifier.background(Color.White)) {
                 Column(
@@ -119,4 +103,11 @@ fun ListRow(model: PersonModel) {
             }
         }
     }
+}
+
+
+@Preview
+@Composable
+fun previewListItem(){
+    ListRow(model = PersonModel("alpha"))
 }

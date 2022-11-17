@@ -3,9 +3,9 @@ package com.ecandle.todo.network
 
 import com.google.gson.annotations.SerializedName
 
-class StreamSResponse:ArrayList<StreamItemResponse>()
+class StreamSResponse:ArrayList<TaskItemResponse>()
 
-data class StreamItemResponse(
+data class TaskItemResponse(
     @SerializedName("id")
     val id: Int,
 

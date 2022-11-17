@@ -5,7 +5,7 @@ class LoginUtils {
     companion object {
         val VALID_DATA = 1
         val INVALID_EMAIL = 2
-        val INVALID_PASSWORD = 2
+        val INVALID_PASSWORD = 3
     }
 
     fun loginFormatValidation(email: String, password: String): Int {

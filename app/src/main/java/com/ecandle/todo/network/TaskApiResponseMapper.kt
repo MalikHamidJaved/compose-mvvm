@@ -1,16 +1,16 @@
 package com.candle.streams_player_mvvm.network
 
 
-import com.ecandle.todo.model.Stream
-import com.ecandle.todo.network.StreamItemResponse
+import com.ecandle.todo.model.Task
+import com.ecandle.todo.network.TaskItemResponse
 import com.ecandle.todo.util.EntityMapper
 import javax.inject.Inject
 
-class StreamApiResponseMapper
+class TaskApiResponseMapper
 @Inject
-constructor() : EntityMapper<StreamItemResponse, Stream> {
-    override fun mapFromEntity(entity: StreamItemResponse): Stream {
-        return Stream(
+constructor() : EntityMapper<TaskItemResponse, Task> {
+    override fun mapFromEntity(entity: TaskItemResponse): Task {
+        return Task(
             id = entity.id,
             recording = entity.recording,
             username_from = entity.username_from,
@@ -19,8 +19,8 @@ constructor() : EntityMapper<StreamItemResponse, Stream> {
         )
     }
 
-    override fun mapToEntity(domainModel: Stream): StreamItemResponse {
-        return StreamItemResponse(
+    override fun mapToEntity(domainModel: Task): TaskItemResponse {
+        return TaskItemResponse(
             id = domainModel.id,
             recording = domainModel.recording,
             username_from = domainModel.username_from,
@@ -29,7 +29,7 @@ constructor() : EntityMapper<StreamItemResponse, Stream> {
         )
     }
 
-    fun mapFromEntityList(entities: List<StreamItemResponse>): List<Stream> {
+    fun mapFromEntityList(entities: List<TaskItemResponse>): List<Task> {
         return entities.map { mapFromEntity(it) }
     }
 

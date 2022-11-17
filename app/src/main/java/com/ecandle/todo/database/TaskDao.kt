@@ -4,10 +4,9 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.ecandle.todo.database.StreamCacheEntity
 
 @Dao
-interface StreamDao {
+interface TaskDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(blogEntity: StreamCacheEntity): Long
 
